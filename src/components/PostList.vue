@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="posts.length > 0">
     <h3>Список постов</h3>
     <post-item 
       v-for="post in posts" 
@@ -8,6 +8,7 @@
       @remove="$emit('remove', post)"
     />
   </div>
+  <h3 v-else class="post-item__empty">Список постов пуст</h3>
 </template>
 
 <script>
@@ -24,5 +25,7 @@ export default {
 </script>
 
 <style scoped>
-
+  .post-item__empty {
+    color: red;
+  }
 </style>
