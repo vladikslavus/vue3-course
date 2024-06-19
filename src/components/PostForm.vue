@@ -1,15 +1,13 @@
 <template>
   <form class="form-post" @submit.prevent>
     <h4>Создание поста</h4>
-    <input
+    <my-input
       v-model="post.title"
-      class="form-post__input"
       type="text"
       placeholder="Название"
     />
-    <input
+    <my-input
       v-model="post.body"
-      class="form-post__input"
       type="text"
       placeholder="Описание"
     />
@@ -18,9 +16,7 @@
 </template>
 
 <script>
-import MyButton from "@/components/UI/MyButton";
 export default {
-  components: { MyButton },
   data() {
     return {
       post: {
@@ -49,16 +45,10 @@ export default {
   display: flex;
   flex-direction: column;
 }
-.form-post__input {
-  width: 100%;
-  border: 1px solid teal;
-  padding: 10px 15px;
-  margin-top: 15px;
-}
 .form-post__btn {
   align-self: flex-end;
-  margin-top: 15px;
-  color: #fff;
-  background: teal;
+  margin-top: 15px;  
+  color: #fff !important;
+  background: teal !important;
 }
 </style>

@@ -6,15 +6,15 @@
       <div><strong>Описание:</strong> {{ post.body }}</div>
     </div>
     <div class="post__btns">
-      <my-button class="post__del">Удалить</my-button>
+      <my-button
+        @click="$emit('remove', post)"
+        class="post__remove">Удалить</my-button>
     </div>
   </div>
 </template>
 
 <script>
-import MyButton from "@/components/UI/MyButton";
 export default {
-  components: {MyButton},
   props: {
     post: {
       type: Object,
@@ -33,7 +33,7 @@ export default {
   justify-content: space-between;
   align-items: center;
 }
-.post__del {
-  padding: 2px 6px;
+.post__remove {
+  padding: 2px 6px !important;
 }
 </style>
