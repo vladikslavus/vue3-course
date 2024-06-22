@@ -1,7 +1,9 @@
 <template>
   <div class="app">
-
-    <post-form @create="createPost"/>
+    <my-button class="main-post-btn" @click="showDialog">Создать пост</my-button>
+    <my-dialog v-model:show="dialogVisible">
+      <post-form @create="createPost"/>
+    </my-dialog>    
     <post-list 
       @remove="removePost"
       :posts="posts"
@@ -23,15 +25,20 @@ export default {
         { id: 1, title: "JavaScript 1", body: "Описание поста 1" },
         { id: 2, title: "JavaScript 2", body: "Описание поста 2" },
         { id: 3, title: "JavaScript 3", body: "Описание поста 3" }
-      ]
+      ],
+      dialogVisible: false
     };
   },
   methods: {
     createPost(post) {
       this.posts.push(post)
+      this.dialogVisible = false
     },
     removePost(post) {
       this.posts = this.posts.filter(p => p.id !== post.id) // перезаписываем массив: фильтруем массив по посту, который удаляем
+    },
+    showDialog() {
+      this.dialogVisible = true
     }
   }
 };
@@ -45,5 +52,8 @@ export default {
 }
 .app {
   padding: 20px;
+}
+.main-post-btn {
+  margin-bottom: 15px;
 }
 </style>
