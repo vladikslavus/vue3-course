@@ -37,6 +37,14 @@ export default {
       }
     },
   },
+  watch: {
+    post: {
+      handler(newVal) {         // Т.к. это объект, то используем функцию handler()
+        console.log(newVal)
+      },
+      deep: true                // и используем "Глубокое отслеживание"
+    }
+  }
 };
 </script>
 

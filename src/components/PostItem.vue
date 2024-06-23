@@ -32,8 +32,13 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: all .2s ease-in-out;
+}
+.post:hover {
+  background: rgba(0, 0, 0, .08);
 }
 .post__remove {
+  background: #fff !important;
   padding: 2px 6px !important;
 }
 </style>

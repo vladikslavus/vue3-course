@@ -1,12 +1,18 @@
 <template>
   <div class="app">
-    <my-button class="main-post-btn" @click="showDialog">Создать пост</my-button>
+    <div class="app__buttons">      
+      <my-button class="app__post-btn" @click="showDialog">Создать пост</my-button>
+      <my-select 
+        v-model="selectedSort"
+        :options="sortOptions"
+      />
+    </div>    
     <my-dialog v-model:show="dialogVisible">
       <post-form @create="createPost"/>
     </my-dialog>    
     <post-list 
       @remove="removePost"
-      :posts="posts"
+      :posts="sortedPosts"
       v-if="!isPostsLoading"
     />
     <div v-else>Идёт загрузка...</div>
@@ -26,7 +32,12 @@ export default {
     return {
       posts: [],
       dialogVisible: false,
-      isPostsLoading: false
+      isPostsLoading: false,
+      selectedSort: '',
+      sortOptions: [
+        {value: 'title', name: 'По названию'},
+        {value: 'body', name: 'По содержимому'}
+      ]
     };
   },
   methods: {
@@ -54,6 +65,24 @@ export default {
   },
   mounted() {
     this.fetchPosts()
+  },
+  computed: {
+    sortedPosts() {
+      return [...this.posts].sort((post1, post2)=> post1[this.selectedSort]?.localeCompare(post2[this.selectedSort]))
+    }
+  },
+  watch: {
+    // selectedSort(newValue) { // Эта функция сразу является хэндлером, т.к. это простой тип данных и функцию handler() и свойство deep: true мы не используем внутри объекта selectedSort
+    //   this.posts.sort((post1, post2)=> {
+    //     return post1[newValue]?.localeCompare(post2[newValue])
+    //   })
+    // },
+    // dialogVisible(newValue) {
+    //   console.log(newValue)
+    // },
+    // isPostsLoading(newValue) {
+    //   console.log(newValue)
+    // }
   }
 };
 </script>
@@ -67,7 +96,10 @@ export default {
 .app {
   padding: 20px;
 }
-.main-post-btn {
+.app__buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 15px;
 }
 </style>
